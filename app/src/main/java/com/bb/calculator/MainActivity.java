@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -12,9 +13,10 @@ public class MainActivity extends AppCompatActivity {
 
     private double valueA = 0;
     private double valueB = 0;
-    private int operator = 0;
+    //private int operator = 0;
 
     private String stringValue = "";
+    private String buttonValue = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,9 +24,141 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         userInputTextView = findViewById(R.id.user_input_textview);
 
+        //stringValue = userInputTextView.getText().toString();
+
     }
 
     public void calcClick(View view){
+        switch(view.getId()){
+            case R.id.zero_button:
+                getButton_Value("0");
+                break;
+
+            case R.id.one_button:
+                getButton_Value("1");
+                break;
+
+            case R.id.two_button:
+                getButton_Value("2");
+                break;
+
+            case R.id.three_button:
+                getButton_Value("3");
+                break;
+
+            case R.id.four_button:
+                getButton_Value("4");
+                break;
+
+            case R.id.five_button:
+                getButton_Value("5");
+                break;
+
+            case R.id.six_button:
+                getButton_Value("6");
+                break;
+
+            case R.id.seven_button:
+                getButton_Value("7");
+                break;
+
+            case R.id.eight_button:
+                getButton_Value("8");
+                break;
+
+            case R.id.nine_button:
+                getButton_Value("9");
+                break;
+
+            case R.id.decimal_button:
+                getButton_Value(".");
+                break;
+
+            case R.id.add_button:
+                getOperation("+");
+                break;
+
+            case R.id.subtract_button:
+                getOperation("-");
+                break;
+
+            case R.id.multiply_button:
+                getOperation("*");
+                break;
+
+            case R.id.division_button:
+                getOperation("/");
+                break;
+
+            case R.id.modulus_button:
+                getOperation("%");
+                break;
+
+            case R.id.ac_button:
+                valueA = 0;
+                valueB = 0;
+                userInputTextView.setText("0");
+                break;
+
+            case R.id.neg_pos_button:
+                stringValue = userInputTextView.getText().toString();
+                valueA = Double.parseDouble(userInputTextView.getText().toString()) * (-1);
+                userInputTextView.setText(valueA + "");
+                break;
+
+            case R.id.equal_button:
+                valueB = Double.parseDouble(userInputTextView.getText().toString());
+                runOperation();
+                break;
+
+        }
+    }
+
+    public void getButton_Value(String buttonText){
+        if(userInputTextView.getText().toString().equals("0")){userInputTextView.setText(buttonText);}
+        else{
+            stringValue = userInputTextView.getText().toString();
+            stringValue += buttonText;
+            userInputTextView.setText(stringValue);
+
+        }
+    }
+
+    public void getOperation(String operationSign){
+        buttonValue = operationSign;
+        valueA = Double.parseDouble(userInputTextView.getText().toString());
+        userInputTextView.setText("0");
+        System.out.println(buttonValue);
+    }
+
+    public void runOperation(){
+        double result = 0;
+        switch (buttonValue){
+            case "+":
+                result = valueA + valueB;
+                break;
+
+            case "-":
+                result = valueA - valueB;
+                break;
+
+            case "*":
+                result = valueA * valueB;
+                break;
+
+            case "/":
+                result = valueA / valueB;
+                break;
+
+            case "%":
+                result = valueA % valueB;
+                break;
+        }
+
+        userInputTextView.setText(result + "");
+    }
+
+    /*public void calcClick(View view){
 
         //stringValue = userInputTextView.getText().toString().trim();
 
@@ -227,5 +361,5 @@ public class MainActivity extends AppCompatActivity {
         }
         userInputTextView.setText("" + answer);
     }
-
+*/
 }
